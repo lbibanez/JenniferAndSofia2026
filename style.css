@@ -450,7 +450,7 @@ h1, h2 { font-family: var(--heading-font); font-weight: 400 }
   width: 100%;
   min-height: 60vh; 
   
-  background-image: url('./images/countdown-hero.jpg');
+  background-image: url('images/countdown-hero.jpg');
   background-size: cover;
   background-position: center; /* Creates a smooth parallax effect */
   display: flex;
@@ -1248,7 +1248,7 @@ h1, h2 { font-family: var(--heading-font); font-weight: 400 }
   height: 300vh; 
   
   /* Your portrait photo */
-  background-image: url('./images/love-story.jpg');
+  background-image: url('images/love-story.jpg');
   background-size: cover;
   background-position: center;
   
@@ -1490,7 +1490,7 @@ a.btn-submit {
   position: relative;
   isolation: isolate;
   overflow: hidden;
-    background-image: url('./images/rsvp.jpg');
+    background-image: url('images/rsvp.jpg');
     background-size: cover;
     background-position: center; 
 }
