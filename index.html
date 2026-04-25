@@ -1,0 +1,624 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Wedding | Names</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital@0;1&family=Inter:wght@300;400&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <audio id="bg-music" loop>
+        <source src="wedding-song.mp3" type="audio/mpeg">
+        Your browser does not support the audio element.
+    </audio>
+
+    <button id="music-toggle" class="music-btn">
+        <span id="music-icon">🎵</span> Play Soundtrack
+    </button>
+
+    <div id="intro-overlay">
+    <div class="intro-content">
+    
+    <h2 class="fade-in-up">INTRODUCING</h2>
+
+    <p class="fade-in-up delay-1">The Venturas</p>
+
+    <div class="envelope-stack" onclick="enterSite()">
+      
+      <div class="envelope-container">
+        <img src="/images/envelope-closed.png" class="env-img" alt="Envelope">
+        
+        <div class="wax-seal-btn">
+          <img src="/images/wax-seal.png" alt="Open Site">
+        </div>
+      </div>
+
+      <img src="/images/flower-decor.png" class="decor-flower" alt="Decor">
+
+    </div>
+
+    <h2 class="fade-in-up delay-1">CLICK SEAL TO OPEN</p>
+
+  </div>
+</div>
+
+<section id="hero-section">
+   </section>
+    
+    <nav class="navbar">
+    <a href="#hero-section" class="logo">J&S</a>
+
+    <button id="menu-toggle" class="menu-toggle" type="button" aria-label="Open navigation menu" aria-expanded="false" aria-controls="mobile-menu-panel">
+        <span></span>
+        <span></span>
+        <span></span>
+    </button>
+
+    <div class="nav-links">
+        <a href="#hero-section">Home</a>
+        
+        <div class="dropdown">
+            <a href="javascript:void(0)" class="dropbtn">Details <span class="arrow">▾</span></a>
+            <div class="dropdown-content">
+                <a href="#wedding-schedule">Schedule</a>
+                <a href="#dress-code">Dress Code</a>
+                <a href="#venue-editorial">Venue</a>
+                <a href="#entourage">Entourage</a>
+                <a href="#love-story">Our Story</a>
+            </div>
+        </div>
+
+        <a href="#rsvp" class="btn-rsvp">RSVP</a>
+    </div>
+
+    <div id="mobile-menu-backdrop" class="mobile-menu-backdrop" aria-hidden="true"></div>
+
+    <div id="mobile-menu-panel" class="mobile-menu" aria-hidden="true">
+        <div class="mobile-menu-inner">
+            <a href="#hero-section" class="mobile-nav-link">Home</a>
+
+            <button id="mobile-details-toggle" class="mobile-submenu-toggle" type="button" aria-expanded="false" aria-controls="mobile-details-menu">
+                Details
+                <span class="mobile-submenu-arrow">▾</span>
+            </button>
+
+            <div id="mobile-details-menu" class="mobile-submenu" aria-hidden="true">
+                <a href="#wedding-schedule" class="mobile-nav-link">Schedule</a>
+                <a href="#dress-code" class="mobile-nav-link">Dress Code</a>
+                <a href="#venue-editorial" class="mobile-nav-link">Venue</a>
+                <a href="#entourage" class="mobile-nav-link">Entourage</a>
+                <a href="#love-story" class="mobile-nav-link">Our Story</a>
+            </div>
+
+            <a href="#rsvp" class="mobile-nav-link mobile-rsvp">RSVP</a>
+        </div>
+    </div>
+    </nav>
+
+    <header class="hero">
+        <div class="hero-content">
+            <div class="hero_logo">
+                <img src="/images/logo.svg" alt="Logo">
+            </div>
+            <h1>Jenn and Sofia</h1>
+            <p class="subtitle">6 . 24 . 2026</p>
+        </div>
+    </header>
+
+    <section class="overview">
+        <div class="overview-image">
+            <img src="/images/overview.jpg" alt="Overview">
+        </div>
+        <div class="overview-content">
+        <h2>You're Invited!</h2>
+        <p>
+        Together with our loved ones, Jenn & Sofia joyfully invite you to join us as we celebrate our union in marriage.
+        </p>
+        <h3 class="overview-date">Wednesday, 24th of June 2026</h2>
+        <p>
+        Ceremony starts at 3:00 PM
+        </p>
+        </div>
+    </section>
+
+    <section class="countdown-hero">
+    <div class="countdown-overlay">
+        <div class="countdown-content">
+        <!-- <h2 class="countdown-title">Counting Down to the Big Day</h2> -->
+        
+        <div id="timer" class="timer-display">
+            <div class="time-group">
+            <span id="days" class="time-val">00</span>
+            <span class="label">Days</span>
+            </div>
+            <span class="colon">:</span>
+            <div class="time-group">
+            <span id="hours" class="time-val">00</span>
+            <span class="label">Hours</span>
+            </div>
+            <span class="colon">:</span>
+            <div class="time-group">
+            <span id="minutes" class="time-val">00</span>
+            <span class="label">Mins</span>
+            </div>
+            <span class="colon">:</span>
+            <div class="time-group">
+            <span id="seconds" class="time-val">00</span>
+            <span class="label">Secs</span>
+            </div>
+        </div>
+
+        </div>
+    </div>
+    </section>
+
+    <section id="wedding-schedule" class="schedule-section">
+    <img src="/images/flower 2.png" alt="" class="bg-decoration slide-in-right">
+    <div class="schedule-container">
+        
+        <div class="schedule-title-box fade-in-element">
+        <h2 class="main-title">THE <br> WEDDING <br> DAY</h2>
+        <span class="script-title">Schedule</span>
+        </div>
+
+        <div class="schedule-timeline">
+        
+        <div class="timeline-item ladder-fade">
+            <span class="time">3:00 PM</span>
+            <span class="event">Wedding Ceremony</span>
+        </div>
+
+        <div class="timeline-item ladder-fade">
+            <span class="time">4:00 PM</span>
+            <span class="event">Photo Session</span>
+        </div>
+
+        <div class="timeline-item ladder-fade">
+            <span class="time">5:00 PM</span>
+            <span class="event">Snacks</span>
+        </div>
+
+        <div class="timeline-item ladder-fade">
+            <span class="time">6:00 PM</span>
+            <span class="event">Dinner Reception</span>
+        </div>
+
+        </div>
+    </div>
+    </section>
+
+    <section id="dress-code" class="dress-code-section">
+    <img src="/images/flower 3.png" alt="" class="bg-decoration slide-in-left">
+    <div class="dress-container fade-in-section">
+        
+        <h2 class="section-title">Dress Code</h2>
+        
+        <div class="dress-content">
+        
+        <div class="guest-group">
+            <h3>Guests</h3>
+            <p>We kindly request formal attire in our wedding color palette.</p>
+            <div class="palette-wrapper">
+            <img src="/images/color-palette1.png" alt="Wedding Color Palette">
+            </div>
+        </div>
+
+        <div class="divider"></div>
+
+        <div class="guest-group">
+            <h3>Principal Sponsors</h3>
+            <p>We kindly request the following attire:</p>
+            <ul class="sponsor-list">
+            <li><strong>Gentlemen</strong><br>Black Suit / Long Sleeves (In Wedding Colors)</li>
+            <li><strong>Ladies</strong><br>Long Gown</li>
+            </ul>
+        </div>
+
+        </div>
+    </div>
+    </section>
+
+
+    <section id="venue-editorial" class="venue-section">  
+        <div class="venue-header fade-in-section">
+            <h2 class="venue-title">VENUE</h2>
+        </div>
+    <div class="venue-block">
+        <div class="venue-image reveal-left">
+        <img src="/images/church.png" alt="The Ceremony Venue">
+        </div>
+        <div class="venue-info reveal-right">
+        <h3 class="venue-label">The Ceremony</h3>
+        <h2 class="venue-name">STA. ANA PARISH</h2>
+        <p class="venue-details">
+            Sta. Ana Ave, corner Lapu-Lapu St, Poblacion District, Davao City, 8000<br>
+            3:00 PM Ceremony | 4:00 PM Photo Session
+        </p>
+        <a href="https://maps.app.goo.gl/nGrJ4iF3Gzv9RCbQ9" target="_blank" class="map-link">View Map</a>
+        </div>
+    </div>
+
+    <div class="venue-block reverse">
+        <div class="venue-image reveal-right">
+        <img src="/images/reception.png" alt="The Reception Venue">
+        </div>
+        <div class="venue-info reveal-left">
+        <h3 class="venue-label">The Reception</h3>
+        <h2 class="venue-name">CLUB WAILEA</h2>
+        <p class="venue-details">
+            629 Lizada St, Lanang, Davao City, 8000<br>
+            5:00 PM Snacks | 6:00 PM Dinner
+        </p>
+        <a href="https://maps.app.goo.gl/WvK254nGMnU7Sb9L9" target="_blank" class="map-link">View Map</a>
+        </div>
+    </div>
+    </section>
+
+    <section id="faq" class="faq-section fade-in-section">
+    <div class="faq-container">
+
+        <img src="/images/flower 4.png" alt="Botanical Accent" class="floral-accent top-left">
+        <img src="/images/flower 6.png" alt="Botanical Accent" class="floral-accent bottom-right">
+
+        <h2 class="section-title">Details & FAQ</h2>
+        
+        <div class="accordion">
+            <div class="accordion-item">
+                <button class="accordion-header">
+                    Can I bring a plus one?
+                    <span class="accordion-icon">+</span>
+                </button>
+                <div class="accordion-content">
+                    <p>To keep our celebration intimate, we are only able to accommodate guests who are formally listed on your invitation. When you search for your name in the RSVP section above, your designated number of reserved seats will automatically appear.</p>
+                </div>
+            </div>
+
+            <div class="accordion-item">
+                <button class="accordion-header">
+                    Are children invited?
+                    <span class="accordion-icon">+</span>
+                </button>
+                <div class="accordion-content">
+                    <p>While we adore your little ones, our capacity means we can only accommodate children if they are explicitly accounted for in your reserved seat count. If they are included, you will have space to enter their names when you RSVP. Thank you for understanding!</p>
+                </div>
+            </div>
+
+            <div class="accordion-item">
+                <button class="accordion-header">
+                    What is the dress code?
+                    <span class="accordion-icon">+</span>
+                </button>
+                <div class="accordion-content">
+                    <p>We kindly request formal attire in our curated color palette to help bring our editorial vision to life.</p>
+                    <br>
+                    <p><strong>For our Principal Sponsors:</strong><br>
+                    Gentlemen are requested to wear a black suit or formal long sleeves in our wedding colors. Ladies are requested to wear an elegant long gown in our wedding colors.</p>
+                    <br>
+                    <p><em>Please refer to our dedicated Dress Code section for our specific palette and visual inspiration.</em></p>
+                </div>
+            </div>
+           
+            
+        </div>
+        
+         <div class="snapshare">
+                <h2 class="section-title">SNAP & SHARE!</h2>
+                <p>Help us capture the love by tagging us with: <br>
+                <strong>#JENNuineLoveForSofia</strong> <br>
+                <strong>#TheVenturas</strong></p>
+        </div>
+
+        <div class="gift-guide-container fade-in-section">
+            
+            <div class="gift-text-column">
+                <h2 class="section-title">Gifts</h2>
+                <p class="gift-intro-message">
+                    As love is what this day is all about,
+                    your presence is one we can't celebrate without.
+                    But should you still believe that a gift is worth giving,
+                    a saving for our future is a delightful blessing.
+                </p>
+            </div>
+
+            <div class="gift-qr-column">
+                
+                <div class="qr-card">
+                    <img src="/images/gcash-qr.png" alt="GCash QR Code">
+                    <p class="qr-label">GCash</p>
+                </div>
+
+                <div class="qr-card">
+                    <img src="/images/bpi-qr.png" alt="BPI QR Code">
+                    <p class="qr-label">BPI</p>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    </section>
+
+        <section id="entourage" class="entourage-section fade-in-section">
+        <img src="/images/flower 1.png" alt="" class="bg-decoration slide-in-top-right">
+        <img src="/images/flower 3.png" alt="" class="bg-decoration slide-in-bottom-left">
+        <h2 class="section-title">ENTOURAGE</h2>
+
+        <div class="entourage-container">
+            
+            <div class="entourage-row">
+            <div class="column">
+                <h3 class="role-title">PARENTS OF THE GROOM</h3>
+                <ul class="name-list">
+                <li>MR. PERCIVAL B. VENTURA</li>
+                <li>MR. JERSON VENTURA</li>
+                <li>MRS. VIRGINIA A. VENTURA</li>
+                <li>MRS. MARIA SHIELA BUMANGLANG</li>
+                </ul>
+            </div>
+            <div class="column">
+                <h3 class="role-title">PARENTS OF THE BRIDE</h3>
+                <ul class="name-list">
+                <li>MR. JAYSON C. IBAÑEZ</li>
+                <li>MRS. GLICERIA B. IBAÑEZ</li>
+                </ul>
+            </div>
+            </div>
+
+            <div class="role-header">
+            <h3 class="role-title-shared">PRINCIPAL SPONSORS</h3>
+            </div>
+            <div class="entourage-row">
+            <div class="column">
+                <ul class="name-list">
+                <li>MR. DENNIS SALVADOR</li>
+                <li>MR. BEAU AUSTIN</li>
+                <li>MR. EDUARDO ANGADOL</li>
+                <li>MR. ARCHIE ROFEROS</li>
+                <li>MR. EDGARDO CHUCAS</li>
+                <li>MR. ALFREDO IBAÑEZ</li>
+                <li>MR. EMMANUEL DE CADIZ</li>
+                <li>MR. ELMER BASILLA</li>
+                <li>MR. RUFINO BATARA</li>
+                <li>MR. SHERWYN PHILIP MATUTE</li>
+                <li>MR. ROY PANADARAOAN</li>
+                <li>MR. ALEX TIONGCO</li>
+                </ul>
+            </div>
+            <div class="column">
+                <ul class="name-list">
+                <li>DR. JEANMARIE SALVADOR</li>
+                <li>MRS. JONASYL AUSTIN</li>
+                <li>MRS. MARICEL ANGADOL</li>
+                <li>MRS. EDITHA ROFEROS</li>
+                <li>MRS. NANCY CHUCAS</li>
+                <li>MRS. ROWENA IBAÑEZ</li>
+                <li>MRS. ALEYLA DE CADIZ</li>
+                <li>MRS. JENNIFER BASILLA</li>
+                <li>MRS. GINA BATARA</li>
+                <li>MRS. CIONIE PASCUAL</li>
+                <li>MS. JOSEPHINE IBAÑEZ</li>
+                <li>MS. MA. TERESA CERVERO</li>
+                </ul>
+            </div>
+            </div>
+
+            <div class="entourage-row">
+            <div class="column">
+                <h3 class="role-title">BEST MAN</h3>
+                <ul class="name-list"><li>MR. REYMARK GABRIEL</li></ul>
+            </div>
+            <div class="column">
+                <h3 class="role-title">MAID OF HONOR</h3>
+                <ul class="name-list"><li>DR. RAYCHEL ARRIESGADO</li></ul>
+            </div>
+            </div>
+
+            <div class="entourage-row">
+            <div class="column">
+                <h3 class="role-title">GROOMSMEN</h3>
+                <ul class="name-list">
+                <li>MR. LUIS IBAÑEZ</li>
+                <li>MR. FRANCIS CHUCAS</li>
+                <li>MR. VON RYAN ARBAS</li>
+                <li>MR. BENJAMIN VENTURA</li>
+                </ul>
+            </div>
+            <div class="column">
+                <h3 class="role-title">BRIDESMAIDS</h3>
+                <ul class="name-list">
+                <li>MS. SAFINA IBAÑEZ</li>
+                <li>MRS. YHAYENE MAE GOMEZ</li>
+                <li>MS. CHERRY FRIAL</li>
+                <li>MS. EVE KRISTIN MARIE CHUCAS</li>
+                </ul>
+            </div>
+            </div>
+
+            <div class="role-header">
+            <h3 class="role-title-shared">SECONDARY SPONSORS</h3>
+            </div>
+            <div class="secondary-sponsors-grid">
+            <div class="sponsor-pair">
+                <span class="sponsor-role">CANDLE</span>
+                <ul class="name-list">
+                <li>MR. BRIAN SABANAL</li>
+                <li>MS. MARIA SUSANA LEGASPI</li>
+                </ul>
+            </div>
+            <div class="sponsor-pair">
+                <span class="sponsor-role">CORD</span>
+                <ul class="name-list">
+                <li>MR. MARLO JOSHUA BRUA</li>
+                <li>MS. APRIL BALAQUIT</li>
+                </ul>
+            </div>
+            <div class="sponsor-pair">
+                <span class="sponsor-role">VEIL</span>
+                <ul class="name-list">
+                <li>MR. GENESES VENTURA</li>
+                <li>MRS. MA. CRISTINA VENTURA</li>
+                </ul>
+            </div>
+            </div>
+
+            <div class="entourage-row">
+            <div class="column">
+                <h3 class="role-title">RING BEARER</h3>
+                <ul class="name-list"><li>PERSEUS LORION</li></ul>
+                <h3 class="role-title" style="margin-top: 30px;">RING BEARER</h3>
+                <ul class="name-list"><li>JASMINE VENTURA</li></ul>
+            </div>
+            <div class="column">
+                <h3 class="role-title">COIN BEARER</h3>
+                <ul class="name-list"><li>SANIATHA BUMANGLAG</li></ul>
+                <h3 class="role-title" style="margin-top: 30px;">FLOWER GIRLS</h3>
+                <ul class="name-list">
+                <li>NIÑA VENTURA</li>
+                <li>CHELSEA BUMANGLAG</li>
+                </ul>
+            </div>
+            </div>
+
+        </div>
+        </section>
+
+    <section id="love-story" class="love-story-panel tall-panel">
+    <div class="story-overlay">
+        <div class="story-content fade-in-section">
+        <h3 class="story-subtitle">Our Journey</h3>
+        <h2 class="story-title">THE STORY OF US</h2>
+        <p class="story-text">
+            We met in June 2021 during a biodiversity fieldwork in Pagudpud, Ilocos Norte. At first, we were simply two people sharing the same place — the same trails, long days, and quiet evenings. <br> We were just colleagues, exchanging brief, practical conversations and noticing each other only in passing.
+
+Then plans shifted.
+
+Because of a flight mix-up, Sofia stayed five more days. It felt as if life itself was asking for a little more time.
+
+With the work nearly done, the days softened. We found ourselves talking through meals and lingering long after everyone else had gone to rest. <br> Somewhere in those unhurried evenings, a quiet understanding found us — that a person so far from home could begin to feel like home, and that someone we had only just met could feel gently, unmistakably familiar.
+
+By the time those five days ended, goodbye felt unfamiliar, as though we were interrupting something still in the middle of being said.
+
+So we kept talking.
+
+<br> <br> In December 2021, we became a couple, making space for each other across the distance between Ilocos and Davao through late-night calls, shared routines, and the quiet comfort of knowing someone was there.
+
+In January 2023, we returned to Pagudpud. At Little Batanes, where it all began, a question was asked.
+
+Will you marry me?
+<strong>Yes.</strong>
+
+<br> <br>By March 2025, we were finally living in the same place in Davao, where simple routines slowly became a life — steady and ours.
+
+Getting married isn’t the start of our story.
+It is simply continuing the life that began with five unexpected days — the days that made us home to each other.
+        </p>
+        </div>
+    </div>
+    </section>
+
+
+    <section id="gallery" class="gallery-section fade-in-section">
+    <div class="gallery-container">
+        <h2 class="section-title">The Prenup</h2>
+        
+        <div class="magazine-grid">
+            <div class="mag-item large-portrait">
+                <img src="/images/Gallery/5.jpg" alt="Prenup Location 1" loading="lazy">
+            </div>
+            <div class="mag-item small-landscape top-right">
+                <img src="/images/Gallery/26.jpg" alt="Prenup Location 2" loading="lazy">
+            </div>
+            <div class="mag-item small-landscape bottom-right">
+                <img src="/images/Gallery/51.jpg" alt="Prenup Location 3" loading="lazy">
+            </div>
+        </div>
+
+        <div class="filmstrip-wrapper">
+            <p class="swipe-hint">Hover to pause</p>
+            <div id="dynamic-filmstrip" class="animated-track"></div>
+        </div>
+        
+    </div>
+</section>
+
+    <section id="rsvp" class="rsvp-section">
+    <div class="rsvp-container fade-in-section">
+        
+        <div class="rsvp-text-column">
+            <h2 class="section-title">RSVP</h2>
+            <p class="rsvp-intro-message">
+                We are so excited to celebrate with you. Please let us know if you can make it by May 24, 2026, so we can finalize our preparations.
+            </p>
+        </div>`
+
+        <div class="rsvp-form-column">
+            
+            <div id="rsvp-search-box">
+                <p class="rsvp-subtitle">Please search for your name to begin your response.</p>
+                <div class="search-wrapper">
+                    <input type="text" id="guest-search" placeholder="Type your full name..." autocomplete="off">
+                    <ul id="search-results" class="hidden"></ul>
+                </div>
+            </div>
+
+            <div id="rsvp-overview" class="hidden">
+                <div class="welcome-header">
+                    <h3 id="overview-name" class="venue-label"></h3>
+                    <p class="rsvp-details">You have already submitted your response. Here is your current RSVP:</p>
+                </div>
+                <div class="overview-content">
+                    <p><strong>Attending:</strong> <span id="overview-attending"></span></p>
+                    <p id="overview-companions-group"><strong>Companions:</strong> <span id="overview-companions"></span></p>
+                    <p id="overview-notes-group"><strong>Notes:</strong> <span id="overview-notes"></span></p>
+                </div>
+                <button type="button" class="btn-submit" id="btn-edit-rsvp">Edit Response</button>
+            </div>
+
+            <form id="dynamic-rsvp-form" class="rsvp-form hidden">
+                <div class="welcome-header">
+                    <h3 id="welcome-message" class="venue-label"></h3>
+                    <p id="seats-info" class="rsvp-details"></p>
+                </div>
+
+                <div class="form-group">
+                    <label for="attendance-select">Will you be attending?</label>
+                    <select name="attendance" id="attendance-select" required>
+                        <option value="yes" selected>Joyfully Accepts</option>
+                        <option value="no">Regretfully Declines</option>
+                    </select>
+                </div>
+
+                <div id="companion-section">
+                    <div id="companion-inputs" class="form-group">
+                        </div>
+                    
+                    <div class="form-group">
+                        <label for="dietary">
+                            Dietary Restrictions or Notes 
+                            <span style="text-transform: none; font-size: 0.75rem; opacity: 0.7; letter-spacing: normal;">(If none, please put N/A)</span>
+                        </label>
+                        <textarea name="dietary" id="dietary" rows="3" placeholder="Any allergies we should know about?" required></textarea>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn-submit" id="submit-btn">Confirm RSVP</button>
+            </form>
+
+            <div id="rsvp-success" class="hidden">
+                <h3 class="venue-name">Thank You!</h3>
+                <p class="rsvp-details">Your response has been saved. We can't wait to see you!</p>
+            </div>
+            
+        </div> </div>
+</section>
+
+    
+
+    <footer>
+        <p>&copy; 2026 Sofia & Jenn</p>
+    </footer>
+    
+    <script src="script.js"></script>
+</body>
+</html>

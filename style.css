@@ -1,0 +1,2416 @@
+@import url(https://db.onlinewebfonts.com/c/9f4b12a4b8d65b0c0af5e70ab51cef0f?family=Le+Jour+Script);
+@import url('https://fonts.googleapis.com/css2?family=Cardo:ital,wght@0,400;0,700;1,400&family=Cormorant+Garamond:ital,wght@0,300..700;1,300..700&family=Pinyon+Script&display=swap');
+/* --- THEME SETTINGS --- */
+:root {
+  --primary-color: #566b30;      
+
+  --accent-color: #4d0708;       
+
+  --secondary-green: #c8d1b3;
+
+  --bg-light: #fdfcf8;           
+  
+  --text-dark: #2c2c2c;          
+  
+  --heading-font: 'Cormorant Garamond', serif;
+  --body-font: 'Inter', sans-serif;
+  --heading2-font: 'Pinyon Script', serif;
+  --number-font: 'Cardo', serif;
+}
+
+/* --- RESET & BASICS --- */
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: var(--body-font);
+  background-color: var(--bg-light);
+  color: var(--text-dark);
+  line-height: 1.6;
+}
+
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 80px 20px;
+  text-align: center;
+}
+
+/* --- LETTER --- */
+/* --- 1. THE OVERLAY --- */
+#intro-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  background-color: var(--bg-light);
+  z-index: 9999;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* The transition for the curtain effect */
+  transition: transform 1.2s cubic-bezier(0.77, 0, 0.175, 1);
+}
+
+/* This class is added by JS to slide the curtain up */
+#intro-overlay.slide-up {
+  transform: translateY(-100%);
+}
+
+/* --- 2. LAYOUT --- */
+.intro-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  width: 100%;
+  max-width: 600px;
+}
+
+/* --- 3. THE STACK (Controls the overall size) --- */
+.envelope-stack {
+  position: relative;
+  
+  /* CHANGE 1: Increase this pixel value to make everything bigger */
+  width: 700px;  
+  
+  /* CHANGE 2: Increase height proportionally so text doesn't overlap */
+  height: 500px; 
+  
+  /* CHANGE 3: Mobile Safety - ensures it never exceeds the screen width */
+  max-width: 90vw; 
+  
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 10px 0; /* Increased margin to give the larger images breathing room */
+  cursor: pointer;
+}
+
+/* Envelope Container */
+.envelope-container {
+  position: relative;
+  width: 100%;
+  z-index: 10; /* Middle Layer */
+  transition: transform 0.4s ease;
+}
+
+.env-img {
+  width: 100%;
+  display: block;
+  filter: drop-shadow(0 15px 25px rgba(27, 48, 34, 0.15));
+}
+
+/* Adjust the flower position slightly since the scale is larger */
+.decor-flower {
+  position: absolute;
+  width: 110%; /* increased slightly to frame the larger envelope better */
+  top: -5%;    /* moved up slightly to clear the envelope flap */
+  left: -5%;
+  z-index: 20;
+  pointer-events: none;
+}
+
+/* Wax Seal Trigger */
+.wax-seal-btn {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 600px;
+  z-index: 25; /* Above flowers so it's always clickable */
+  transition: transform 0.3s ease;
+}
+
+.wax-seal-btn img { width: 100%; }
+
+/* Hover Effects */
+.envelope-stack:hover .wax-seal-btn {
+  transform: translate(-50%, -50%) scale(1.1);
+}
+
+/* --- 4. TEXT ANIMATIONS --- */
+.fade-in-up {
+  opacity: 0;
+  transform: translateY(30px);
+  animation: fadeInUp 1.2s forwards;
+  color: var(--primary-color);
+}
+
+h2.fade-in-up {
+  font-family: var(--heading-font);
+  font-size: 2rem;
+}
+
+p.fade-in-up{
+  font-family: var(--heading2-font);
+  font-size: 4rem;
+}
+
+
+
+.delay-1 { animation-delay: 0.3s; }
+
+@keyframes fadeInUp {
+  to { opacity: 1; transform: translateY(0); }
+}
+
+h1, h2 { font-family: var(--heading-font); font-weight: 400 }
+
+/* --- NAVIGATION --- */
+/* --- NAVBAR BASE (Transparent at Top) --- */
+.navbar {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 25px 5%;
+  z-index: 1000;
+  background: transparent; /* Initial state */
+  transition: transform 0.4s ease, background 0.4s ease, padding 0.4s ease;
+}
+
+/* --- STATE: SCROLLED (White Background) --- */
+.navbar.scrolled {
+  background: var(--bg-light);
+  padding: 15px 5%;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+}
+
+/* --- STATE: HIDDEN (Retract on Scroll Down) --- */
+.navbar.nav-hidden {
+  transform: translateY(-100%);
+}
+
+/* --- LOGO & LINKS COLOR LOGIC --- */
+/* --- NAVBAR BASE --- */
+.navbar {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  /* CHANGE 1: Adjusted padding for better framing */
+  padding: 15px 3%; 
+  z-index: 1000;
+  background: transparent;
+  transition: transform 0.4s ease, background 0.4s ease, padding 0.4s ease, box-shadow 0.4s ease;
+}
+
+/* --- LOGO SIZING --- */
+.logo {
+  color: var(--bg-light);
+  text-decoration: none;
+  font-family: var(--heading-font);
+  /* CHANGE 2: Made the logo significantly larger */
+  font-size: 1.5rem; 
+  transition: color 0.3s ease;
+}
+
+/* --- NAV LINKS SPACING --- */
+.nav-links {
+  display: flex;
+  align-items: center;
+  /* CHANGE 3: Used gap for even spacing between Home, Details, and RSVP */
+  gap: 40px; 
+}
+
+.nav-links a {
+  text-decoration: none;
+  color: var(--bg-light);
+  /* CHANGE 4: Removed margin-left since we are using gap */
+  margin-left: 0; 
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  transition: color 0.3s ease, border-color 0.3s ease, background-color 0.3s ease;
+}
+
+/* Ensure RSVP button doesn't have extra margin */
+.btn-rsvp {
+  border: 1px solid var(--bg-light);
+  padding: 10px 25px;
+  /* CHANGE 5: Removed margin-left */
+  margin-left: 0; 
+  transition: all 0.3s ease;
+}
+
+/* Change text to Charcoal when background appears */
+.navbar.scrolled .logo,
+.navbar.scrolled .nav-links a {
+  color: #333333; 
+}
+
+/* --- DROPDOWN STYLING --- */
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+/* --- DROPDOWN MENU --- */
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: var(--bg-light);
+  min-width: 200px; /* Slightly wider */
+  box-shadow: 0px 10px 20px rgba(0,0,0,0.1); /* Softer shadow */
+  padding: 10px 0;
+  z-index: 1;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  
+  /* CHANGE 6: Replaced margin with a transparent border to fix the hover gap */
+  margin-top: 0;
+  border-top: 15px solid transparent; 
+  background-clip: padding-box; /* Ensures background doesn't bleed into the border */
+}
+
+.dropdown-content a {
+  color: #333333 !important; /* Always Charcoal in dropdown */
+  padding: 12px 20px;
+  display: block;
+  font-size: 0.75rem !important;
+  text-align: center;
+}
+
+.dropdown-content a:hover {
+  background-color: rgba(0,0,0,0.02);
+}
+
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+
+/* RSVP Button Style */
+.btn-rsvp {
+  border: 1px solid var(--bg-light);
+  padding: 8px 20px !important;
+  margin-left: 20px;
+}
+
+.navbar.scrolled .btn-rsvp {
+  border-color: #333333;
+}
+
+/* --- HOVER EFFECTS --- */
+
+/* 1. Dropdown Links Hover */
+.dropdown-content a:hover {
+  /* A subtle background color */
+  background-color: rgba(0, 0, 0, 0.04); 
+  /* Slightly darker text for contrast */
+  color: #000 !important; 
+}
+
+/* 2. RSVP Button Hover (Transparent State) */
+.btn-rsvp:hover {
+  background-color: var(--bg-light);
+  color: var(--text-dark) !important;
+  border-color: var(--bg-light);
+}
+
+/* 3. RSVP Button Hover (Scrolled State) */
+/* When scrolled, the button is charcoal. On hover, it fills with charcoal. */
+.navbar.scrolled .btn-rsvp:hover {
+  background-color: var(--primary-color);
+  color: var(--bg-light) !important;
+  border-color: #333333;
+}
+
+/* Optional: Hover effect for plain links like "Home" */
+.nav-links > a:not(.btn-rsvp):hover,
+.dropbtn:hover {
+  opacity: 0.8; /* Simple opacity change */
+}
+
+/* --- HERO SECTION --- */
+.hero {
+  height: 95vh;
+  background: linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.2)), 
+              url('/images/hero.png');
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--bg-light);
+  text-align: center;
+}
+
+.hero_logo {
+  max-width: 500px;
+  width: 100%;      
+  height: auto;
+  opacity: 0;
+  transition: opacity 2s ease-in 0.2s;
+}
+
+.hero_logo.fade-in-hero {
+  opacity: 1;
+}
+
+.hero_logo img{
+  width: 60%;
+  height: 60%;
+  object-fit: contain;
+}
+
+.hero h1 { 
+  font-family: var(--heading-font);
+  font-size: 3rem; 
+  letter-spacing: 5px;
+  opacity: 0;
+  transition: opacity 2s ease-in 0.5s;
+}
+
+.hero h1.fade-in-hero {
+  opacity: 1;
+}
+
+.subtitle { 
+  letter-spacing: 3px; 
+  font-size: 2rem; 
+  font-family: var(--heading-font);
+  opacity: 0;
+  transition: opacity 2s ease-in 0.8s;
+}
+
+.subtitle.fade-in-hero {
+  opacity: 1;
+}
+
+/* --- QUICK OVERVIEW --- */  
+
+.overview {
+  padding: 200px 20% ; /* Increased side padding for that "airy" look */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+  gap: 0; /* Creates the specific gap between image and text */
+}
+
+/* 1. Give both sides equal weight */
+.overview-image, 
+.overview-content {
+  flex: 1; /* This ensures the image and text take up 50% each */
+  display: flex;
+  flex-direction: column;
+  align-items: center; 
+  text-align: center;
+}
+
+/* 2. Make the image responsive inside its half */
+.overview-image img {
+  max-width: 600px; /* Limits size on desktop */
+  width: 100%;      /* Allows it to shrink on smaller screens */
+  height: auto;
+  object-fit: contain;
+  border: 2px solid var(--primary-color) ;
+}
+
+/* 3. Clean up the text constraints */
+.overview-content {
+  width: auto; /* Remove the 60% constraint */
+}
+
+.overview h2 {
+  font-family: var(--heading2-font);
+  font-size: 5rem; /* Larger font for the "You're Invited" look */
+  font-weight: 500;
+  font-style: italic;
+  white-space: normal; /* Allow it to wrap if needed, or stay on one line naturally */
+  margin-bottom: 30px;
+}
+
+.overview h3 {
+  font-family: var(--heading-font);
+  font-size: 2.5rem; 
+  font-weight: 500;
+  font-style: italic;
+  white-space: normal; /* Allow it to wrap if needed, or stay on one line naturally */
+  margin: 30px;
+}
+
+.overview p {
+  font-family: var(--heading-font);
+  font-size: 1.5rem;
+  line-height: 1.3;
+  max-width: 400px; /* Keeps the paragraph text from stretching too wide */
+}
+
+/*COUNTDOWN TIMER*/
+
+.countdown-hero {
+  position: relative;
+  width: 100%;
+  min-height: 60vh; 
+  
+  background-image: url('/images/countdown-hero.jpg');
+  background-size: cover;
+  background-position: center; /* Creates a smooth parallax effect */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* The Dark Green Tint Overlay */
+.countdown-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  
+  /* Using your primary Dark Green with 60% transparency */
+  background-color: rgba(9, 15, 11, 0); 
+  
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 5%;
+}
+
+.countdown-content {
+  text-align: center;
+  z-index: 2;
+}
+
+/* .countdown-title {
+  font-family: var(--heading2-font);
+  font-style: italic;
+  font-size: 6rem;
+  color: var(--bg-light); /* Off-white 
+  margin-bottom: 50px;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3); Adds readability */
+
+
+.timer-display {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start; /* Aligns colons to the top/middle of numbers */
+  gap: 15px;
+  color: var(--bg-light);
+}
+
+.time-group {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.time-val {
+  font-family: var(--heading-font);
+  font-size: 11rem; /* Large, elegant numbers */
+  line-height: 1;
+  min-width: 1.2ch; /* Prevents layout jump when numbers change */
+  font-style: italic;
+}
+
+.colon {
+  font-family: var(--heading-font);
+  font-size: 9rem;
+  line-height: 1.1;
+  padding: 0 5px;
+  /* Optional: Give colons your burgundy color for a subtle detail */
+  color: var(--bg-light); 
+}
+
+.label {
+  font-family: var(--body-font);
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  font-size: 0.75rem;
+  opacity: 0.8;
+  margin-top: 20px;
+}
+
+/* Mobile Adjustment */
+@media (max-width: 600px) {
+  .time-val { font-size: 2.5rem; }
+  .colon { font-size: 2rem; padding: 0 2px; }
+  .timer-display { gap: 5px; }
+}
+
+/* --- WEDDING SCHEDULE --- */
+.schedule-section {
+  padding: 150px 5%;
+  display: flex;
+  justify-content: center;
+  color: var(--text-dark);
+}
+
+.schedule-container {
+  display: flex;
+  width: 100%;
+  max-width: 900px;
+  justify-content: space-evenly;
+  align-items: center;
+  gap: 0px;
+}
+
+.schedule-title-box{
+  text-align: right;
+}
+
+.main-title {
+  font-family: var(--heading-font);
+  font-size: 4.5rem;
+  line-height: 0.9;
+  letter-spacing: 4px;
+  margin: 0;
+}
+
+.script-title {
+  font-family: var(--heading2-font);
+  font-size: 5rem;
+  display: block;
+  margin-top: -15px;
+}
+
+/* --- THE TIMELINE --- */
+.schedule-timeline {
+  display: flex;
+  flex-direction: column;
+  gap: 35px;
+}
+
+.timeline-item {
+  display: flex;
+  flex-direction: column;
+  opacity: 0; /* Hidden for the Ladder Animation */
+  transform: translateY(20px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+.time {
+  font-family: var(--heading-font);
+  font-size: 2rem;
+  font-weight: 600;
+  margin-bottom: 4px;
+  color: var(--text-dark) !important;
+}
+
+.event {
+  font-family: var(--heading-font);
+  font-size: 1.5rem;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: var(--text-dark);
+}
+
+/* --- ANIMATION TRIGGERS --- */
+.fade-in-element {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 1s ease, transform 1s ease;
+}
+
+.is-visible {
+  opacity: 1 !important;
+  transform: translateY(0) !important;
+}
+
+/* Mobile Layout */
+@media (max-width: 768px) {
+  .schedule-container { flex-direction: column; text-align: center; }
+  .schedule-timeline { align-items: center; }
+}
+
+/* --- DRESS CODE --- */
+
+.dress-code-section {
+  background-color: var(--secondary-green);
+  padding: 150px 5%;
+  letter-spacing: 4px;
+  text-align: center;
+  color: var(--text-dark); 
+}
+
+.section-title {
+  font-family: var(--heading-font);
+  font-size: 4.5rem;
+  text-transform: uppercase;
+  margin-bottom: 70px;
+}
+
+.dress-content {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 70px;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.guest-group {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.guest-group h3 {
+  font-family: var(--heading-font);
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  font-size: 2rem;
+  margin-bottom: 20px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid rgba(49, 49, 48, 0.3);
+}
+
+.guest-group p {
+  font-family: var(--heading-font);
+  font-size: 1.5rem;
+  margin-bottom: 25px;
+}
+
+.palette-wrapper img {
+  width: 100%;
+  max-width: 400px;
+  height: auto;
+}
+
+.sponsor-list {
+  list-style: none;
+  padding: 0;
+}
+
+.sponsor-list li {
+  font-family: var(--heading-font);
+  font-size: 1.5rem;
+  margin-bottom: 25px;
+  line-height: 1.4;
+}
+
+.sponsor-list strong {
+  font-size: 1rem;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  opacity: 0.7;
+  color: var(--text-dark);
+}
+
+/* Vertical Divider */
+.divider {
+  width: 1px;
+  height: 280px;
+  background-color: rgba(49, 49, 48, 0.3);
+}
+
+.fade-in-section {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 1.2s ease-out, transform 1.2s ease-out;
+}
+
+.fade-in-section.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Mobile responsive */
+@media (max-width: 768px) {
+  .dress-content { flex-direction: column; gap: 60px; }
+  .divider { display: none; }
+}
+
+/* --- VENUE SECTION --- */
+
+/* --- THE MAIN SECTION CONTAINER --- */
+
+.venue-section {
+  padding: 150px 5%;
+  overflow-x: hidden;
+  background-color: transparent;
+  display: flex;
+  flex-direction: column; /* Stacks the title, then block 1, then block 2 */
+  align-items: center;    /* Centering the direct children */
+  gap: 100px;
+}
+
+.venue-header {
+  width: 100%;
+  display: flex;
+  justify-content: center; /* Ensures the h2 is centered horizontally */
+  
+  /* Initial state for animation */
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 1.2s ease, transform 1.2s ease;
+}
+
+
+.venue-header .venue-title {
+  font-family: var(--heading-font);
+  color: #333333 !important; 
+  font-size: 4.5rem;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  margin: 0;
+  padding: 0;
+}
+
+/* --- THE TRIGGER CLASS --- */
+.venue-header.is-visible {
+  opacity: 1 !important;
+  transform: translateY(0) !important;
+}
+.venue-block {
+  display: flex;
+  align-items: center;
+  gap: 80px;
+  width: 100%;
+}
+
+.venue-title-container.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Flip every other block */
+.venue-block.reverse {
+  flex-direction: row-reverse;
+}
+
+/* Image Styling */
+.venue-image {
+  flex: 1.2; /* Image is slightly wider than text column */
+  overflow: hidden;
+}
+
+.venue-image img {
+  width: 100%;
+  height: 500px;
+  object-fit: cover;
+  display: block;
+  /* Very subtle rounding or keep sharp for high-end look */
+  border-radius: 2px; 
+}
+
+/* Text Column Styling */
+.venue-info {
+  flex: 0.8;
+  color: #333333; /* Explicit Charcoal */
+  text-align: left;
+}
+
+.venue-label {
+  font-family: var(--body-font);
+  text-transform: uppercase;
+  letter-spacing: 4px;
+  font-size: 0.8rem;
+  opacity: 0.6;
+  margin-bottom: 15px;
+}
+
+.venue-name {
+  font-family: var(--heading-font);
+  font-size: 2.5rem;
+  line-height: 1.1;
+  margin-bottom: 25px;
+  font-weight: bold;
+
+}
+
+.venue-details {
+  font-family: var(--heading-font);
+  font-size: 1.2rem;
+  line-height: 1.6;
+  margin-bottom: 35px;
+}
+
+/* Minimalist Link/Button */
+.map-link {
+  font-family: var(--body-font);
+  color: #333333;
+  text-decoration: none;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  font-size: 0.75rem;
+  border-bottom: 1px solid rgba(51, 51, 51, 0.3);
+  padding-bottom: 5px;
+  transition: all 0.3s ease;
+}
+
+.map-link:hover {
+  border-bottom-color: #333333;
+  letter-spacing: 3px;
+}
+
+/* --- INITIAL HIDDEN STATES --- */
+.reveal-left, .reveal-right {
+  opacity: 0;
+  transition: transform 1.2s cubic-bezier(0.2, 0.8, 0.2, 1), 
+              opacity 1.2s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+/* Slide in from the Left */
+.reveal-left {
+  transform: translateX(-60px);
+}
+
+/* Slide in from the Right */
+.reveal-right {
+  transform: translateX(60px);
+}
+
+.reveal-left.is-visible,
+.reveal-right.is-visible {
+  opacity: 1 !important;
+  transform: translateX(0) !important;
+}
+
+/* Ensure the venue section hides overflow so side-sliding doesn't cause scrollbars */
+
+
+/* Typography remains Charcoal */
+.venue-info {
+  color: #333333; /* Explicit Charcoal */
+}
+
+/* Mobile: Disable horizontal slide to prevent layout breaking */
+@media (max-width: 768px) {
+  .reveal-left, .reveal-right {
+    transform: translateY(30px); /* Switch to simple lift-up on mobile */
+  }
+}
+
+/* Mobile Responsive */
+@media (max-width: 992px) {
+  .venue-block, .venue-block.reverse {
+    flex-direction: column;
+    gap: 40px;
+  }
+  .venue-image img { height: 350px; }
+  .venue-info { text-align: center; }
+}
+
+/* --- FAQ ACCORDION --- */
+.faq-section {
+    padding: 100px 5%;
+    background-color: var(--bg-light); /* Off-white background */
+    display: flex;
+    justify-content: center;
+     position: relative; 
+    overflow: hidden; 
+}
+
+/* --- FLOATING FLORAL ACCENTS --- */
+
+
+
+/* The Base Flower Styling */
+.floral-accent {
+    position: absolute;
+    width: 1000px; /* Size of the flower - adjust as needed */    
+  opacity: 0;
+  transition: transform 1.4s cubic-bezier(0.22, 1, 0.36, 1), opacity 1.4s ease-out;
+    pointer-events: none; /* MAGIC: Prevents the image from blocking clicks on the FAQs */
+    z-index: 1; 
+    user-select: none; /* Prevents guests from accidentally highlighting the image */
+}
+
+/* Positioning Flower 1: Top Left */
+.floral-accent.top-left {
+    top: 20px;
+    left: 420px;
+  transform: translate(-50px, -50px) rotate(-30deg); /* Slide in from upper left */
+}
+
+/* Positioning Flower 2: Bottom Right (Next to the Gift Guide) */
+.floral-accent.bottom-right {
+    bottom: -130px;
+    right: 460px;
+  transform: translate(50px, 50px) rotate(-20deg); /* Slide in from lower right */
+}
+
+.floral-accent.top-left.is-visible {
+  opacity: 0.22;
+  transform: translate(0, 0) rotate(-30deg) !important;
+}
+
+.floral-accent.bottom-right.is-visible {
+  opacity: 0.22;
+  transform: translate(0, 0) rotate(-20deg) !important;
+}
+
+/* --- MOBILE ADJUSTMENTS --- */
+@media (max-width: 768px) {
+    .floral-accent {
+        width: 200px; /* Make them smaller on phones so they don't crowd the text */
+    }
+
+  .floral-accent.is-visible {
+    opacity: 0.12;
+  }
+    
+    .floral-accent.top-left {
+        top: -20px;
+        left: -50px;
+    }
+
+    .floral-accent.bottom-right {
+        bottom: -20px;
+        right: -50px;
+    }
+}
+
+.faq-container {
+    width: 100%;
+    max-width: 800px; /* Keeps the reading width comfortable */
+    position: relative;
+    z-index: 10; 
+}
+
+.accordion {
+    margin-top: 40px;
+    border-top: 1px solid rgba(51, 51, 51, 0.2); /* Top border for the list */
+}
+
+.accordion-item {
+    border-bottom: 1px solid rgba(51, 51, 51, 0.2); /* Divider lines */
+}
+
+.accordion-header {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 25px 0;
+    background: transparent;
+    border: none;
+    font-family: var(--heading-font);
+    font-size: 1.3rem;
+    color: #333333; /* Charcoal */
+    cursor: pointer;
+    text-align: left;
+    transition: color 0.3s ease;
+}
+
+.accordion-header:hover {
+    color: #888888; /* Slight fade on hover to indicate it's clickable */
+}
+
+/* The Plus/Cross Icon */
+.accordion-icon {
+    font-size: 1.8rem;
+    font-weight: 300;
+    transition: transform 0.4s ease;
+}
+
+/* The Hidden Content */
+.accordion-content {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s ease-out, padding 0.4s ease;
+}
+
+.accordion-content p {
+    font-family: var(--body-font);
+    font-size: 1.1rem;
+    line-height: 1.6;
+    color: #333333;
+    opacity: 0.8;
+    margin: 0;
+    padding-bottom: 0;
+}
+
+/* --- ACTIVE STATE (When Opened) --- */
+.accordion-item.active .accordion-icon {
+    transform: rotate(45deg); /* Turns the + into an x */
+}
+
+.accordion-item.active .accordion-content {
+    padding-bottom: 25px;
+    /* max-height is handled dynamically by JavaScript */
+}
+
+.snapshare {
+  margin-top: 60px;
+}
+.snapshare p{
+    font-family: var(--body-font);
+    font-size: 1.1rem;
+}
+
+.snapshare h2{
+    font-family: var(--heading-font);
+    font-size: 4.5rem;
+    letter-spacing: 4px;
+    margin: 0;
+}
+
+/* --- GIFT GUIDE TWO-COLUMN LAYOUT --- */
+.gift-guide-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 60px;
+    margin-top: 80px; /* Space between the FAQ and the Gift Guide */
+    padding-top: 60px;
+}
+
+/* --- LEFT: Text Content --- */
+.gift-text-column {
+    flex: 1;
+    max-width: 40%;
+    text-align: left;
+}
+
+.gift-text-column .section-title {
+    margin-bottom: 20px;
+    text-align: left; /* Overrides centered titles */
+}
+
+.gift-intro-message {
+    font-family: var(--body-font);
+    font-size: 1.1rem;
+    line-height: 1.6;
+    color: #333333;
+    opacity: 0.8;
+}
+
+/* --- RIGHT: QR Codes --- */
+.gift-qr-column {
+    flex: 1;
+    display: flex;
+    gap: 30px; /* Space between the two QR codes */
+    justify-content: flex-end; /* Pushes the codes neatly to the right edge */
+}
+
+.qr-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 180px; /* Controls the size of the QR codes */
+}
+
+.qr-card img {
+    width: 100%;
+    height: auto;
+    border: 1px solid rgba(51, 51, 51, 0.1); /* Very subtle frame */
+    padding: 10px; /* Gives the QR code breathing room inside the frame */
+    background-color: #ffffff;
+    border-radius: 4px;
+    margin-bottom: 15px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.03); /* Soft, premium shadow */
+}
+
+.qr-label {
+    font-family: var(--body-font);
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: #333333;
+}
+
+/* --- MOBILE RESPONSIVE FIXES --- */
+@media (max-width: 768px) {
+    .gift-guide-container {
+        flex-direction: column; /* Stacks text on top of QR codes */
+        gap: 40px;
+        align-items: center;
+    }
+    
+    .gift-text-column {
+        max-width: 100%;
+        text-align: center;
+    }
+    
+    .gift-text-column .section-title {
+        text-align: center; /* Centers title on phones */
+    }
+    
+    .gift-qr-column {
+        justify-content: center;
+        width: 100%;
+        gap: 20px;
+    }
+    
+    .qr-card {
+        width: 45%; /* Makes QR codes fit nicely side-by-side on small screens */
+        max-width: 160px;
+    }
+}
+
+/* --- ENTOURAGE --- */
+
+/* --- SECTION STYLING --- */
+.entourage-section {
+  background-color: var(--secondary-green); 
+  padding: 150px 5%;
+  text-align: center;
+  color: var(--text-dark); 
+  font-family: var(--heading-font)
+}
+
+.entourage-container {
+  max-width: 1000px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 20px; /* Space between rows */
+}
+
+/* --- TYPOGRAPHY --- */
+.section-title {
+  margin-bottom: 60px;
+  font-family: var(--heading-font);
+  font-size: 4.5rem;
+  letter-spacing: 4px;}
+
+.role-title, .role-title-shared {
+  font-size: 1.5rem;
+  font-weight: bolder;
+  margin-bottom: 15px;
+  letter-spacing: 1px;
+}
+
+/* --- LAYOUT & LISTS --- */
+.entourage-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 0px;
+  
+}
+
+.column {
+  flex: 1;
+}
+
+.name-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.name-list li {
+  font-family: var(--heading-font);
+  font-size: 1rem;
+  font-weight: 600;
+  margin-bottom: 8px;
+  letter-spacing: 0.5px;
+}
+
+/* --- SECONDARY SPONSORS GRID --- */
+.secondary-sponsors-grid {
+  display: flex;
+  justify-content: space-around;
+  gap: 20px;
+}
+
+.sponsor-pair {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.sponsor-role {
+  font-weight: bold;
+  font-size: 1.1rem;
+  margin-bottom: 10px;
+}
+
+/* --- MOBILE RESPONSIVE --- */
+@media (max-width: 768px) {
+  .entourage-row {
+    flex-direction: column;
+    gap: 40px;
+  }
+  .secondary-sponsors-grid {
+    flex-direction: column;
+    gap: 40px;
+  }
+}
+
+.fade-in-up {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: all 1s ease-out;
+}
+
+.fade-in-up.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* --- LOVE STORY --- */
+.love-story-panel.tall-panel {
+  position: relative;
+  width: 100%;
+  height: 300vh; 
+  
+  /* Your portrait photo */
+  background-image: url('/images/love-story.jpg');
+  background-size: cover;
+  background-position: center;
+  
+  display: flex;
+  align-items: center; /* Vertically centers text within the 200vh */
+  justify-content: center;
+}
+
+
+.story-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(253, 252, 248, 0.3); 
+  display: flex;
+  justify-content: center;
+  z-index: 1;
+}
+
+/* --- TYPOGRAPHY (CHARCOAL) --- */
+.story-content {
+  text-align: center;
+  color: var(--text-dark); 
+  z-index: 2;
+  padding: 400px 20px;
+}
+
+
+
+.story-title {
+  font-family: var(--heading-font);
+  font-size: 4rem;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  margin-bottom: 75px;
+}
+
+.story-subtitle {
+  font-family: var(--body-font);
+  text-transform: uppercase;
+  letter-spacing: 5px;
+  font-size: 0.8rem;
+  margin-bottom: 20px;
+  opacity: 0.8;
+}
+
+.story-text {
+  font-family: var(--heading-font);
+  font-size: 1.4rem;
+  font-style: italic;
+  line-height: 1.8;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+/* --- REUSE YOUR FADE-IN ANIMATION --- */
+.fade-in-section {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 1.2s ease-out, transform 1.2s ease-out;
+}
+
+.fade-in-section.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* --- GALLERY CONTAINER --- */
+.gallery-section {
+    padding: 100px 5%;
+    background-color: var(--bg-light);
+    display: flex;
+    justify-content: center;
+}
+
+.gallery-container {
+    width: 100%;
+    max-width: 1200px; /* Wide editorial layout */
+}
+
+.gallery-container .section-title {
+    margin-bottom: 50px;
+    text-align: center;
+}
+
+.gallery-cta {
+    text-align: center;
+    margin-top: 60px; 
+    padding-bottom: 20px;
+}
+
+a.btn-submit {
+    text-decoration: none; 
+}
+
+/* --- PART 1: MAGAZINE GRID --- */
+.magazine-grid {
+    display: grid;
+    grid-template-columns: 1.5fr 1fr; /* Left side wider than the right */
+    grid-template-rows: repeat(2, 1fr);
+    gap: 20px; /* Thick gutters between photos */
+    margin-bottom: 60px; 
+    height: 700px; /* Locks height for a clean look */
+}
+
+.mag-item {
+    overflow: hidden; 
+    background-color: #eee; 
+}
+
+.mag-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; 
+    transition: transform 0.6s ease;
+}
+
+.mag-item:hover img {
+    transform: scale(1.03); /* Subtle premium zoom */
+}
+
+/* Grid Positioning */
+.large-portrait {
+    grid-column: 1 / 2;
+    grid-row: 1 / 3;
+}
+
+.top-right {
+    grid-column: 2 / 3;
+    grid-row: 1 / 2;
+}
+
+.bottom-right {
+    grid-column: 2 / 3;
+    grid-row: 2 / 3;
+}
+
+
+/* --- PART 2: CINEMATIC FILMSTRIP (ANIMATED) --- */
+.filmstrip-wrapper {
+    position: relative;
+    width: 100%;
+    margin-top: 40px;
+    overflow: hidden; /* Hides images sliding off screen */
+}
+
+.swipe-hint {
+    font-family: var(--body-font);
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    color: rgba(51, 51, 51, 0.5);
+    text-align: right;
+    margin-bottom: 15px;
+}
+
+.animated-track {
+    display: flex;
+    width: max-content; 
+}
+
+.filmstrip-slide {
+    display: flex;
+    gap: 15px;
+    padding-right: 15px; /* Gap between Loop 1 and Loop 2 */
+    animation: infiniteScroll 60s linear infinite; /* Adjust 45s to change speed */
+}
+
+/* Pause animation when guest hovers */
+.animated-track:hover .filmstrip-slide {
+    animation-play-state: paused;
+}
+
+.film-frame {
+    width: 500px; 
+    height: 400px;
+    object-fit: cover;
+    filter: grayscale(20%); /* Moody editorial film look */
+    transition: filter 0.4s ease, transform 0.4s ease;
+    cursor: pointer;
+}
+
+.film-frame:hover {
+    filter: grayscale(0%);
+    transform: scale(1.02);
+}
+
+/* The Sliding Keyframes */
+@keyframes infiniteScroll {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-100%); }
+}
+
+/* --- MOBILE RESPONSIVE FIXES --- */
+@media (max-width: 768px) {
+    .magazine-grid {
+        grid-template-columns: 1fr; 
+        grid-template-rows: auto;
+        height: auto;
+    }
+    
+    .large-portrait {
+        grid-column: 1 / 2;
+        grid-row: 1 / 2;
+        height: 500px;
+    }
+
+    .top-right {
+        grid-column: 1 / 2;
+        grid-row: 2 / 3;
+        height: 300px;
+    }
+
+    .bottom-right {
+        grid-column: 1 / 2;
+        grid-row: 3 / 4;
+        height: 300px;
+    }
+
+    .film-frame {
+        width: 300px;
+        height: 250px;
+    }
+
+    .love-story-panel.tall-panel img{
+      opacity: 0.1;
+    }
+}
+
+/* --- RSVP CONTAINER --- */
+.rsvp-section {
+    padding: 120px 5%;
+    background-color: var(--bg-light); /* Off-White background */
+    color: #333333; /* Charcoal text */
+    display: flex;
+    justify-content: center;
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+    background-image: url('/images/rsvp.jpg');
+    background-size: cover;
+    background-position: center; 
+}
+
+.rsvp-section::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, rgba(253, 252, 248, 0.84) 0%, rgba(253, 252, 248, 0.68) 45%, rgba(253, 252, 248, 0.52) 100%);
+  z-index: 1;
+  pointer-events: none;
+}
+
+.rsvp-container {
+    width: 100%;
+    max-width: 1000px; /* Widened to accommodate two columns */
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 60px; /* Space between the left and right sides */
+  position: relative;
+  z-index: 2;
+}
+
+/* --- LEFT COLUMN: Title & Message --- */
+.rsvp-text-column {
+    flex: 1;
+    max-width: 35%; /* Keeps the title section compact */
+    text-align: left;
+    position: sticky; /* Optional: Keeps title in view if the form gets long */
+    top: 100px;
+}
+
+.rsvp-text-column .section-title {
+    margin-bottom: 20px;
+    text-align: left; /* Overrides any previous center alignment */
+}
+
+.rsvp-intro-message {
+    font-family: var(--body-font);
+    font-size: 1.1rem;
+    line-height: 1.6;
+    opacity: 0.8;
+}
+
+/* --- RIGHT COLUMN: The Interactive Form --- */
+.rsvp-form-column {
+    flex: 1;
+    max-width: 55%;
+    text-align: left; /* Ensures everything in the right column is left-aligned */
+}
+
+/* Ensure the search bar stretches fully in its new column */
+.search-wrapper {
+    position: relative;
+    width: 100%;
+    margin: 0; 
+}
+
+/* Form spacing fixes for the new layout */
+.rsvp-form { margin-top: 0; }
+#rsvp-overview { margin-top: 0; }
+
+/* --- MOBILE RESPONSIVE --- */
+@media (max-width: 768px) {
+    .rsvp-container {
+        flex-direction: column; /* Stacks the columns on mobile */
+        gap: 40px;
+    }
+    
+    .rsvp-text-column, .rsvp-form-column {
+        max-width: 100%;
+        position: static; /* Removes sticky behavior on phones */
+    }
+    
+    .rsvp-text-column .section-title {
+        text-align: center; /* Centers title on mobile for better flow */
+    }
+    
+    .rsvp-intro-message {
+        text-align: center;
+    }
+}
+
+/* --- RSVP OVERVIEW STYLING --- */
+.overview-content {
+    margin-bottom: 30px;
+    font-family: var(--heading-font);
+    font-size: 1.2rem;
+    color: #333333;
+    line-height: 2;
+}
+
+.overview-content p {
+    border-bottom: 1px solid rgba(51, 51, 51, 0.1);
+    padding-bottom: 10px;
+    margin-bottom: 15px;
+}
+
+.overview-content strong {
+    font-family: var(--body-font);
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-right: 15px;
+    opacity: 0.7;
+}
+
+/* --- SEARCH INPUT STYLING --- */
+#guest-search {
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid rgba(51, 51, 51, 0.3); /* Charcoal bottom line */
+    padding: 12px 5px;
+    font-family: var(--heading-font);
+    font-size: 1.2rem;
+    color: #333333; /* Charcoal text */
+    width: 100%;
+    transition: border-color 0.3s ease;
+}
+
+#guest-search:focus {
+    outline: none;
+    border-bottom-color: #333333; /* Darkens the line when typing */
+}
+
+/* Ensure placeholder text looks elegant */
+#guest-search::placeholder {
+    color: rgba(51, 51, 51, 0.5);
+    font-style: italic;
+} 
+
+
+
+/* --- SEARCH RESULTS DROPDOWN --- */
+#search-results {
+    list-style: none;
+    background: #fff;
+    border: 1px solid rgba(51, 51, 51, 0.1);
+    position: absolute;
+    width: 100%;
+    top: 100%;
+    z-index: 10;
+    padding: 0;
+    max-height: 250px;
+    overflow-y: auto;
+    text-align: left;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+}
+
+#search-results li {
+    padding: 15px 20px;
+    cursor: pointer;
+    font-family: var(--heading-font);
+    border-bottom: 1px solid rgba(51, 51, 51, 0.05);
+}
+
+#search-results li:hover { background-color: var(--secondary-green); }
+
+/* --- DYNAMIC FORM STYLING --- */
+.rsvp-form { text-align: left; margin-top: 40px; }
+
+.welcome-header {
+    margin-bottom: 40px;
+    border-bottom: 1px solid rgba(51, 51, 51, 0.1);
+    padding-bottom: 20px;
+}
+
+.form-group { display: flex; flex-direction: column; gap: 15px; margin-bottom: 30px; }
+
+.rsvp-form label {
+    font-family: var(--body-font);
+    text-transform: uppercase;
+    font-size: 0.75rem;
+    letter-spacing: 2px;
+}
+
+.rsvp-form input, .rsvp-form select, .rsvp-form textarea {
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid rgba(51, 51, 51, 0.2);
+    padding: 12px 5px;
+    font-family: var(--heading-font);
+    font-size: 1.2rem;
+    color: #333333;
+}
+
+/* --- COHESIVE SUBMIT BUTTON --- */
+.btn-submit {
+    background-color: transparent; /* Hollow look to match navbar */
+    color: #333333; /* Charcoal text */
+    border: 1px solid #333333; /* Clean charcoal border */
+    padding: 15px 30px;
+    font-family: var(--body-font);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-top: 30px;
+    width: auto; /* Keeps it naturally sized, or change to 100% for full width */
+    display: inline-block;
+}
+
+/* The "Fill" effect on hover, perfectly mirroring the navbar */
+.btn-submit:hover {
+    background-color: var(--primary-color);
+    color: var(--bg-light) !important;
+}
+
+/* A slight focus state for accessibility */
+.btn-submit:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(51, 51, 51, 0.2);
+}
+
+/* --- BUTTON LOADING STATE --- */
+.btn-submit.loading {
+    pointer-events: none; /* Prevents double-clicking */
+    animation: textPulse 1.5s infinite ease-in-out;
+}
+
+@keyframes textPulse {
+    0% { opacity: 1; }
+    50% { opacity: 0.4; }
+    100% { opacity: 1; }
+}
+
+.companion-field { margin-top: 10px; width: 100%; }
+
+#companion-section { transition: opacity 0.3s ease; }
+
+.hidden { display: none !important; }
+
+/* Mobile optimization */
+@media (max-width: 768px) {
+    .section-title { font-size: 3rem; }
+    #search-results li { padding: 20px; font-size: 1.2rem; }
+}
+
+footer { padding: 40px; text-align: center; font-size: 0.8rem; color: #888; }
+
+/* --- MOBILE RESPONSIVENESS --- */
+@media (max-width: 600px) {
+  .hero h1 { font-size: 2.5rem; }
+  .nav-links { display: none; } /* Simplifies mobile nav */
+}
+
+/* --- MOBILE ADJUSTMENT --- */
+/* Add this at the bottom of your CSS to fix the height on phones */
+@media (max-width: 600px) {
+  .envelope-stack {
+    height: 300px; /* Force a smaller height on mobile so big gaps don't appear */
+  }
+}
+
+/* --- Z-INDEX LAYERING --- */
+/* Ensure sections can contain absolute elements */
+#wedding-schedule, #dress-code, #entourage {
+  position: relative;
+  overflow: hidden; /* Prevents horizontal scrollbar during animation */
+}
+
+/* Ensure text is ALWAYS on top */
+.schedule-container,
+.dress-container,
+.entourage-container {
+  position: relative;
+  z-index: 2;
+}
+
+/* --- BACKGROUND DECORATION BASE STYLES --- */
+.bg-decoration {
+  position: absolute;
+  z-index: 1; /* Sits behind the content */
+  opacity: 0; /* Start hidden */
+  pointer-events: none; /* Ensures clicks go through to the text */
+  /* A smooth, elegant ease-out curve for the slide */
+  transition: transform 1.4s cubic-bezier(0.22, 1, 0.36, 1), opacity 1.4s ease-out;
+  
+  /* Adjust size as needed, this keeps them subtle */
+  max-height: 70%; 
+  width: auto;
+}
+
+/* Final visible state (subtle opacity) */
+.bg-decoration.is-visible {
+  opacity: 0.25; /* A nice, subtle background tint */
+}
+
+/* --- ANIMATION VARIANTS --- */
+
+/* Slide in from the RIGHT (for Schedule) */
+.slide-in-right {
+  top: 30%;
+  right: -100px; /* Start off-screen */
+  transform: translateY(-50%) translateX(100px); /* Start position */
+  max-height: 100%;
+}
+.slide-in-right.is-visible {
+  right: 3%; /* End position (slightly cropped for a natural look) */
+  transform: translateY(-50%) translateX(0);
+}
+
+/* Slide in from the LEFT (for Dress Code) */
+.slide-in-left {
+  top: 20%;
+  left: -100px;
+  transform: translateY(-50%) translateX(-100px);
+  max-height: 100%;
+}
+.slide-in-left.is-visible {
+  left: 5%;
+  transform: translateY(-50%) translateX(0);
+}
+
+/* Slide in from TOP-RIGHT CORNER (for Entourage) */
+.slide-in-top-right {
+  top: -100px;
+  right: -100px;
+  transform: translate(100px, -100px);
+  max-height: 40%; /* Slightly smaller for the corner */
+}
+.slide-in-top-right.is-visible {
+  top: 0;
+  right: -100px;
+  transform: translate(0, 0);
+}
+
+/* Slide in from BOTTOM-LEFT CORNER */
+.slide-in-bottom-left {
+  bottom: -100px;
+  left: -100px;
+  transform: translate(-100px, 100px);
+  max-height: 50% !important; /* Slightly smaller for balance */
+}
+
+.slide-in-bottom-left.is-visible {
+  bottom: -150px;
+  left: 50px;
+  transform: translate(0, 0);
+}
+
+
+/* --- FLOATING MUSIC BUTTON --- */
+.music-btn {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    z-index: 1000; /* Ensures it stays on top of all other photos/content */
+    background-color: var(--bg-light); /* Off-white background */
+    color: #333333; /* Charcoal text */
+    border: 1px solid rgba(51, 51, 51, 0.3);
+    padding: 12px 20px;
+    font-family: var(--body-font);
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    cursor: pointer;
+    border-radius: 50px; /* Gives it a sleek pill shape */
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05); /* Very soft shadow */
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.music-btn:hover {
+    background-color: var(--primary-color);
+    color: var(--bg-light);
+}
+
+/* Mobile adjustments so it doesn't block the screen on phones */
+@media (max-width: 768px) {
+    .music-btn {
+        bottom: 20px;
+        right: 20px;
+        padding: 10px 15px;
+        font-size: 0.8rem;
+    }
+}
+
+/* --- CONSOLIDATED MOBILE NAV + RESPONSIVE CLEANUP --- */
+body.menu-open {
+  overflow: hidden;
+}
+
+.menu-toggle {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+  width: 44px;
+  height: 44px;
+  border: 1px solid rgba(253, 252, 248, 0.5);
+  border-radius: 999px;
+  background: transparent;
+  cursor: pointer;
+}
+
+.menu-toggle span {
+  width: 18px;
+  height: 1.5px;
+  background: var(--bg-light);
+  transition: transform 0.3s ease, opacity 0.3s ease, background-color 0.3s ease;
+}
+
+.navbar.scrolled .menu-toggle {
+  border-color: rgba(51, 51, 51, 0.45);
+}
+
+.navbar.scrolled .menu-toggle span {
+  background: #333333;
+}
+
+.mobile-menu-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.35);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+  z-index: 1090;
+}
+
+.mobile-menu {
+  position: fixed;
+  top: 0;
+  right: -100%;
+  width: min(85vw, 360px);
+  height: 100vh;
+  background: var(--bg-light);
+  box-shadow: -20px 0 40px rgba(0, 0, 0, 0.15);
+  transition: right 0.35s ease;
+  z-index: 1100;
+  overflow-y: auto;
+}
+
+.mobile-menu-inner {
+  padding: 100px 24px 30px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.mobile-nav-link,
+.mobile-submenu-toggle {
+  display: block;
+  width: 100%;
+  padding: 12px 0;
+  text-align: left;
+  text-decoration: none;
+  color: #333333;
+  border: none;
+  background: transparent;
+  font-family: var(--heading-font);
+  font-size: 1.25rem;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
+.mobile-submenu-toggle {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-top: 1px solid rgba(51, 51, 51, 0.14);
+  border-bottom: 1px solid rgba(51, 51, 51, 0.14);
+}
+
+.mobile-submenu-arrow {
+  transition: transform 0.25s ease;
+}
+
+.mobile-submenu-toggle[aria-expanded="true"] .mobile-submenu-arrow {
+  transform: rotate(180deg);
+}
+
+.mobile-submenu {
+  display: none;
+  padding: 6px 0 10px 14px;
+}
+
+.mobile-submenu.open {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.mobile-submenu .mobile-nav-link {
+  font-size: 1.02rem;
+  letter-spacing: 0.8px;
+  text-transform: none;
+  padding: 8px 0;
+}
+
+.mobile-rsvp {
+  margin-top: 14px;
+  border: 1px solid rgba(51, 51, 51, 0.35);
+  border-radius: 999px;
+  padding: 10px 18px;
+  text-align: center;
+}
+
+.navbar.mobile-open {
+  background: var(--bg-light);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+}
+
+.navbar.mobile-open .logo {
+  color: #333333;
+}
+
+.navbar.mobile-open .menu-toggle {
+  border-color: rgba(51, 51, 51, 0.45);
+}
+
+.navbar.mobile-open .menu-toggle span {
+  background: #333333;
+}
+
+.navbar.mobile-open .menu-toggle span:nth-child(1) {
+  transform: translateY(6.5px) rotate(45deg);
+}
+
+.navbar.mobile-open .menu-toggle span:nth-child(2) {
+  opacity: 0;
+}
+
+.navbar.mobile-open .menu-toggle span:nth-child(3) {
+  transform: translateY(-6.5px) rotate(-45deg);
+}
+
+.navbar.mobile-open .mobile-menu-backdrop {
+  opacity: 1;
+  visibility: visible;
+}
+
+.navbar.mobile-open .mobile-menu {
+  right: 0;
+}
+
+@media (max-width: 768px) {
+  .menu-toggle {
+    display: flex;
+  }
+
+  .nav-links {
+    display: none;
+  }
+
+  .navbar {
+    padding: 12px 5%;
+  }
+
+  .logo {
+    font-size: 1.35rem;
+  }
+
+  .envelope-stack {
+    width: min(88vw, 460px);
+    height: 330px;
+  }
+
+  .wax-seal-btn {
+    width: 80%;
+    max-width: 360px;
+  }
+
+  h2.fade-in-up {
+    font-size: 1.4rem;
+  }
+
+  p.fade-in-up {
+    font-size: 2.4rem;
+  }
+
+  .hero {
+    min-height: 72vh;
+    height: 72vh;
+    background-position: 30% 24%;
+    background-size: cover;
+  }
+
+  .hero h1 {
+    font-size: 2.2rem;
+    letter-spacing: 3px;
+  }
+
+  .subtitle {
+    font-size: 1.35rem;
+    letter-spacing: 2px;
+  }
+
+  .overview {
+    padding: 60px 20px;
+    flex-direction: column;
+    gap: 36px;
+  }
+
+  .overview h2 {
+    font-size: 3rem;
+    margin-bottom: 18px;
+  }
+
+  .overview h3 {
+    font-size: 1.8rem;
+    margin: 20px 0;
+  }
+
+  .overview p {
+    font-size: 1.1rem;
+    max-width: 95%;
+  }
+
+  .time-val {
+    font-size: 5rem;
+  }
+
+  .colon {
+    font-size: 4rem;
+  }
+
+  .countdown-hero {
+    min-height: 56vh;
+    background-position: center 35%;
+  }
+
+  .bg-decoration,
+  .floral-accent {
+    display: none !important;
+  }
+
+  .schedule-section,
+  .dress-code-section,
+  .venue-section,
+  .entourage-section,
+  .rsvp-section {
+    padding: 90px 20px;
+  }
+
+  .schedule-title-box {
+    text-align: center;
+  }
+
+  .main-title {
+    font-size: 3rem;
+  }
+
+  .script-title {
+    font-size: 3.4rem;
+  }
+
+  .section-title,
+  .venue-header .venue-title,
+  .snapshare h2,
+  .gallery-container .section-title,
+  .rsvp-text-column .section-title {
+    font-size: 2.8rem;
+    letter-spacing: 2px;
+    margin-bottom: 40px;
+  }
+
+  .dress-content {
+    gap: 30px;
+  }
+
+  .guest-group h3 {
+    font-size: 1.5rem;
+  }
+
+  .guest-group p,
+  .sponsor-list li {
+    font-size: 1.2rem;
+  }
+
+  .venue-block,
+  .venue-block.reverse {
+    gap: 28px;
+  }
+
+  .venue-image img {
+    height: auto;
+    aspect-ratio: 4 / 3;
+  }
+
+  .venue-name {
+    font-size: 2rem;
+  }
+
+  .faq-section {
+    padding: 80px 20px;
+  }
+
+  .accordion-header {
+    font-size: 1.08rem;
+  }
+
+  .gift-guide-container {
+    margin-top: 50px;
+    padding-top: 30px;
+    gap: 28px;
+  }
+
+  .love-story-panel.tall-panel {
+    min-height: 0;
+    height: auto;
+    overflow: hidden;
+    background-position: center 20%;
+  }
+
+  .story-overlay {
+    position: relative;
+    height: auto;
+    align-items: flex-start;
+    padding: 90px 0 60px;
+  }
+
+  .story-content {
+    padding: 0 20px;
+    max-width: 760px;
+    margin: 0 auto;
+  }
+
+  .story-title {
+    font-size: 2.3rem;
+    margin-bottom: 28px;
+    letter-spacing: 0.12em;
+  }
+
+  .story-text {
+    font-size: 1.1rem;
+    line-height: 1.7;
+  }
+
+  .film-frame {
+    width: 260px;
+    height: 210px;
+  }
+
+  .rsvp-container {
+    gap: 30px;
+  }
+
+  .rsvp-section {
+    background-position: center 25%;
+  }
+
+  .rsvp-section::before {
+    background: linear-gradient(180deg, rgba(253, 252, 248, 0.9) 0%, rgba(253, 252, 248, 0.84) 38%, rgba(253, 252, 248, 0.74) 100%);
+  }
+
+  .rsvp-text-column {
+    background: rgba(253, 252, 248, 0.62);
+    border: 1px solid rgba(51, 51, 51, 0.12);
+    border-radius: 16px;
+    padding: 16px;
+  }
+
+  .rsvp-text-column {
+    max-width: 100%;
+    position: static;
+  }
+
+  .rsvp-form-column {
+    max-width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .menu-toggle {
+    width: 40px;
+    height: 40px;
+  }
+
+  .mobile-menu {
+    width: min(90vw, 320px);
+  }
+
+  .envelope-stack {
+    height: 270px;
+  }
+
+  h2.fade-in-up {
+    font-size: 1.15rem;
+  }
+
+  p.fade-in-up {
+    font-size: 2rem;
+  }
+
+  .hero h1 {
+    font-size: 1.8rem;
+  }
+
+  .hero {
+    min-height: 66vh;
+    height: 66vh;
+    background-position: 22% 22%;
+  }
+
+  .subtitle {
+    font-size: 1.05rem;
+  }
+
+  .overview h2 {
+    font-size: 2.4rem;
+  }
+
+  .overview h3 {
+    font-size: 1.45rem;
+  }
+
+  .time-val {
+    font-size: 3rem;
+  }
+
+  .colon {
+    font-size: 2.2rem;
+  }
+
+  .countdown-hero {
+    min-height: 50vh;
+    background-position: 55% center;
+  }
+
+  .bg-decoration,
+  .floral-accent {
+    display: none !important;
+  }
+
+  .label {
+    letter-spacing: 1px;
+    font-size: 0.62rem;
+  }
+
+  .section-title,
+  .venue-header .venue-title,
+  .snapshare h2,
+  .gallery-container .section-title,
+  .rsvp-text-column .section-title {
+    font-size: 2.15rem;
+    letter-spacing: 1.4px;
+  }
+
+  .main-title {
+    font-size: 2.2rem;
+  }
+
+  .script-title {
+    font-size: 2.6rem;
+  }
+
+  .event {
+    font-size: 1.1rem;
+    letter-spacing: 1px;
+  }
+
+  .time {
+    font-size: 1.5rem;
+  }
+
+  .magazine-grid {
+    gap: 12px;
+  }
+
+  .large-portrait {
+    height: 360px;
+  }
+
+  .top-right,
+  .bottom-right {
+    height: 220px;
+  }
+
+  .film-frame {
+    width: 220px;
+    height: 180px;
+  }
+
+  .gift-qr-column {
+    gap: 12px;
+  }
+
+  .qr-card {
+    width: 100%;
+    max-width: 140px;
+  }
+
+  .music-btn {
+    bottom: 12px;
+    right: 12px;
+    padding: 8px 12px;
+    font-size: 0.7rem;
+    letter-spacing: 1px;
+  }
+
+  .story-overlay {
+    padding: 70px 0 45px;
+  }
+
+  .story-content {
+    max-width: 100%;
+  }
+
+  .story-text {
+    font-size: 1rem;
+    line-height: 1.65;
+  }
+
+  .rsvp-section {
+    background-position: 62% center;
+  }
+
+  .rsvp-section::before {
+    background: linear-gradient(180deg, rgba(253, 252, 248, 0.93) 0%, rgba(253, 252, 248, 0.88) 44%, rgba(253, 252, 248, 0.8) 100%);
+  }
+
+  .rsvp-text-column {
+    padding: 14px;
+  }
+}
