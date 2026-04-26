@@ -678,6 +678,27 @@ function shuffleArray(array) {
 // 3. Build and Inject the Seamless Loop
 document.addEventListener("DOMContentLoaded", function() {
     const track = document.getElementById('dynamic-filmstrip');
+  const swipeHint = document.querySelector('.swipe-hint');
+  const mobileTapMedia = window.matchMedia('(max-width: 768px), (hover: none), (pointer: coarse)');
+
+  function updateFilmstripInteractionMode() {
+    if (!track) return;
+
+    // Reset paused state when switching modes to avoid getting stuck.
+    track.classList.remove('is-paused');
+
+    if (swipeHint) {
+      swipeHint.textContent = mobileTapMedia.matches ? 'Tap to pause' : 'Hover to pause';
+    }
+  }
+
+  updateFilmstripInteractionMode();
+
+  if (typeof mobileTapMedia.addEventListener === 'function') {
+    mobileTapMedia.addEventListener('change', updateFilmstripInteractionMode);
+  } else if (typeof mobileTapMedia.addListener === 'function') {
+    mobileTapMedia.addListener(updateFilmstripInteractionMode);
+  }
     
     if (track) {
         // Shuffle the pool and select exactly 15 photos to keep the site fast
@@ -712,6 +733,17 @@ document.addEventListener("DOMContentLoaded", function() {
         // Inject the groups into the webpage
         track.appendChild(group1);
         track.appendChild(group2);
+
+        // Mobile-only toggle: tap once to pause, tap again to play.
+        track.addEventListener('click', function() {
+          if (!mobileTapMedia.matches) return;
+
+          track.classList.toggle('is-paused');
+
+          if (swipeHint) {
+            swipeHint.textContent = track.classList.contains('is-paused') ? 'Tap to play' : 'Tap to pause';
+          }
+        });
     }
 });
 
@@ -722,7 +754,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
     // Optional: Lower the volume slightly so it's background ambiance, not overpowering
   if (music) {
-    music.volume = 0.4;
+    music.volume = 0.01;
   }
 
     if (musicBtn) {

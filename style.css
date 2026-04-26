@@ -331,7 +331,7 @@ h1, h2 { font-family: var(--heading-font); font-weight: 400 }
 .hero {
   height: 95vh;
   background: linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.2)), 
-              url('./images/hero.png');
+              url('images/hero.png');
   background-size: cover;
   background-position: center;
   display: flex;
@@ -1412,6 +1412,10 @@ a.btn-submit {
     width: max-content; 
 }
 
+.animated-track.is-paused .filmstrip-slide {
+  animation-play-state: paused;
+}
+
 .filmstrip-slide {
     display: flex;
     gap: 15px;
@@ -1419,9 +1423,11 @@ a.btn-submit {
     animation: infiniteScroll 60s linear infinite; /* Adjust 45s to change speed */
 }
 
-/* Pause animation when guest hovers */
-.animated-track:hover .filmstrip-slide {
+/* Pause animation only on devices that truly support hover (desktop/laptop). */
+@media (hover: hover) and (pointer: fine) {
+  .animated-track:hover .filmstrip-slide {
     animation-play-state: paused;
+  }
 }
 
 .film-frame {
@@ -1473,10 +1479,6 @@ a.btn-submit {
     .film-frame {
         width: 300px;
         height: 250px;
-    }
-
-    .love-story-panel.tall-panel {
-      background-opa
     }
 }
 
@@ -2208,6 +2210,7 @@ body.menu-open {
     height: auto;
     align-items: flex-start;
     padding: 90px 0 60px;
+    background-color: rgba(253, 252, 248, 0.62);
   }
 
   .story-content {
@@ -2391,6 +2394,7 @@ body.menu-open {
 
   .story-overlay {
     padding: 70px 0 45px;
+    background-color: rgba(253, 252, 248, 0.72);
   }
 
   .story-content {
